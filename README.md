@@ -1,5 +1,7 @@
 # Example of Refactoring Legacy ObjC code into Swift
 
+This is an example project, containing the `SignalBox` class, illustrating a refactor of the legacy _SignalBox_ from ObjC to Swift.
+
 ## Goals:
 1. Wrap the legacy code in tests
 2. With the tests, add interfaces to allow injecting mocks for anything connected to our class.
