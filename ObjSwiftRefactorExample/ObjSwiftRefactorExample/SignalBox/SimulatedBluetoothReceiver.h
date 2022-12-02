@@ -9,12 +9,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol SimulatedBluetoothReceiverDelegate <NSObject>
-- (void)didReceiveDataPacket:(NSData *)data;
+@interface SimulatedBluetoothReceiverDataPacket: NSObject <NSCoding>
+@property (nonatomic, retain) NSUUID * uuid;
+@property (nonatomic) int engineSpeed;
+@property (nonatomic) int wheelSpeed;
+@property (nonatomic) int seedRate;
 @end
 
-@interface SimulatedBluetoothReceiver : NSObject
+@protocol SimulatedBluetoothReceiverDelegate <NSObject>
+@required
+- (void)didReceiveDataPacket:(NSData *)data;
+- (void)bluetoothDidConnect;
+- (void)bluetoothDidDisconnect;
+@end
+
+@interface SimulatedBluetoothReceiver: NSObject
 @property (nonatomic, strong) id<SimulatedBluetoothReceiverDelegate> delegate;
+- (void)setUpdateInterval:(int)interval;
 - (void)start;
 - (void)stop;
 @end
