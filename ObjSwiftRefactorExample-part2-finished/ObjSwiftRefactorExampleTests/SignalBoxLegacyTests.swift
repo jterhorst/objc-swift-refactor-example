@@ -1,6 +1,6 @@
 //
-//  ObjSwiftRefactorExampleTests.swift
-//  ObjSwiftRefactorExampleTests
+//  SignalBoxLegacyTests.swift
+//  SignalBoxLegacyTests
 //
 //  Created by Jason Terhorst on 12/2/22.
 //
@@ -22,4 +22,5 @@ final class SignalBoxLegacyTests: XCTestCase {
         SignalBox.sharedManager().start()
     }
 
+    
 }
