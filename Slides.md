@@ -32,17 +32,18 @@
 
 ## We'll clone the Obj-C
 
-1. Write our standard to measure against.
-2. Enable testing.
-3. Create our clone, passing the same tests as the original.
+1. Enable testing.
+2. Create our clone, passing the same tests as the original.
+3. Line-by-line copy, at first.
 
 ---
 
 ## Ground rules
 
-1. The original legacy class should not change.
-2. We're not changing architecture (yet).
+1. The original legacy class _should not change_!
+2. We're _not changing architecture_ (yet).
 3. Add capabilities to the legacy class, allowing mocks.
+4. No refactoring beyond this (yet).
 
 ---
 
