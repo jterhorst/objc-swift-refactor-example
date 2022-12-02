@@ -20,4 +20,8 @@ Exploring how we can refactor, test, and confidently replace an ObjC class with 
 
 **Part 4:** Implement a full blanket of unit tests around the legacy class. If the legacy class has tests that's great, but don't consider these as part of our "coverage" in this phase. Don't break the existing tests, since these may cover domain knowledge we're not aware of. Our new tests will attempt to cover any conditional cases and pathways between dependencies, getting as close to 100% coverage as possible. Visualize that you have a meter and are measuring the voltage in and out of an electrical device with a few buttons, and writing down the expected values in each configuration of buttons. This will be important for the next step.
 
-**Part 5:** _Clone the test class, and create a Swift implementation to fulfill those tests._ Make an exact duplicate of your blanket of unit tests. Create an empty Swift implementation for cloning the legacy class. Update the test duplicate to point to your new Swift implementation clone. 
+**Part 5:** Make an exact duplicate of your unit tests. Create a new Swift implementation for cloning the legacy class. Update the test duplicate to point to your new Swift implementation clone. Now start filling in your Swift implementation until the tests pass.
+
+From here, you can decide how to refactor the internal implementation of your Swift clone. So long as you don't break the tests, you can refactor as you see fit.
+
+I'd recommend creating a factory to vend the desired legacy or clone implementation, based on the value of a feature flag. This way, if the clone misbehaves in production, you can shut it down.
