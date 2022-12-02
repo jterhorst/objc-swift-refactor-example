@@ -14,7 +14,7 @@ Exploring how we can refactor, test, and confidently replace an ObjC class with 
 
 **Starting Point:** The "starting point" directory illustrates our "legacy" ObjC project. There's a `SignalBox` which gets messages from `SimulatedBluetoothReceiver` gets messages often. It works, but the code is old and ugly. Many devs on the team want nothing to do with this code.
 
-**Part 1:** Beginning our efforts to make this code behave well for Swift. We're not changing the design of these structures - rather, we're adding attributes to make clear what is expected from them. Nullability and other Swift intercompatibility attributes are the key here.
+**Part 1:** Beginning our efforts to make this code behave well for Swift. We're not changing the design of these structures - rather, we're adding attributes to make clear what is expected from them. Nullability and other Swift intercompatibility attributes are the key here. This includes adding an empty Swift file in the main target, to ensure it creates a "bridging header".
 
 **Part 2:** Now that our Objective-C is a bit easier to consume in Swift, we're moving into the thought process of near-total test coverage of the legacy class. If it has dependencies, we should attempt to conform those to public interfaces in the form of protocols. Only the functions in the dependency which are used by our legacy ObjC are in-scope for this project. (We will later create mock classes conforming to those same protocols.) Take a note of any functions not used by our legacy class, as they could be considered as part of another class in future refactors - again, out of scope for this project.
 
