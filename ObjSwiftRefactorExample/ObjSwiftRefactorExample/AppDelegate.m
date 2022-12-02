@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SignalBox.h"
 
 @interface AppDelegate ()
 
@@ -16,9 +17,29 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothConnected:) name:signalBoxConnectedNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothDisconnected:) name:signalBoxDisconnectedNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:signalBoxTelemetryReceivedNotificationName object:nil];
+    
+    [[SignalBox sharedManager] start];
+
     return YES;
 }
 
+#pragma mark - Bluetooth notifications
+
+- (void)bluetoothConnected:(NSNotification *)notification {
+    NSLog(@"Connected!");
+}
+
+- (void)bluetoothDisconnected:(NSNotification *)notification {
+    NSLog(@"Disconnected!");
+}
+
+- (void)receivedData:(NSNotification *)notification {
+    NSLog(@"received data: %@", [[notification object] debugDescription]);
+}
 
 #pragma mark - UISceneSession lifecycle
 

@@ -19,8 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignalBox : NSObject
 + (instancetype)sharedManager;
-- (void)setSignalInterval:(int)interval;
-
+- (void)setSignalInterval:(NSTimeInterval)interval;
+- (void)start;
+- (void)stop;
 @end
 
 NS_ASSUME_NONNULL_END
+
+static NSString * signalBoxConnectedNotificationName = @"SignalBoxConnected";
+static NSString * signalBoxDisconnectedNotificationName = @"SignalBoxDisconnected";
+static NSString * signalBoxTelemetryReceivedNotificationName = @"SignalBoxTelemetry";

@@ -12,8 +12,8 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super init]) {
         self.uuid = [coder decodeObjectForKey:@"uuid"];
-        self.engineSpeed = [coder decodeIntForKey:@"engineSpeed"];
-        self.wheelSpeed = [coder decodeIntForKey:@"wheelSpeed"];
+        self.engineSpeed = [coder decodeDoubleForKey:@"engineSpeed"];
+        self.wheelSpeed = [coder decodeDoubleForKey:@"wheelSpeed"];
         self.seedRate = [coder decodeIntForKey:@"seedRate"];
     }
     return self;
@@ -21,15 +21,22 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:_uuid forKey:@"uuid"];
-    [coder encodeInt:_engineSpeed forKey:@"engineSpeed"];
-    [coder encodeInt:_wheelSpeed forKey:@"wheelSpeed"];
+    [coder encodeDouble:_engineSpeed forKey:@"engineSpeed"];
+    [coder encodeDouble:_wheelSpeed forKey:@"wheelSpeed"];
     [coder encodeInt:_seedRate forKey:@"seedRate"];
+}
+
+- (NSString *)debugDescription {
+    return [NSString stringWithFormat:@"uuid: %@, engineSpeed: %f, wheelSpeed: %f, seedRate: %d", _uuid, _engineSpeed, _wheelSpeed, _seedRate];
 }
 
 @end
 
 @interface SimulatedBluetoothReceiver ()
-@property (nonatomic, assign) int updateInterval;
+{
+    dispatch_queue_t telemetryUpdateQueue;
+}
+@property (nonatomic, assign) NSTimeInterval updateInterval;
 @property (nonatomic, strong) NSTimer * internalTimer;
 - (void)_internalStart;
 - (void)_internalStop;
@@ -37,7 +44,15 @@
 
 @implementation SimulatedBluetoothReceiver
 
-- (void)setUpdateInterval:(int)interval {
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        telemetryUpdateQueue = dispatch_queue_create("SimulatedBluetoothReceiver.telemetryUpdateQueue", NULL);
+    }
+    return self;
+}
+
+- (void)setUpdateInterval:(NSTimeInterval)interval {
     BOOL timerExists = (_internalTimer != nil);
     if (timerExists) {
         [self _internalStop];
@@ -58,17 +73,38 @@
 
 - (void)_internalStart {
     [_internalTimer invalidate];
-    _internalTimer = [NSTimer timerWithTimeInterval:_updateInterval target:self selector:@selector(_internalTimerFired:) userInfo:nil repeats:YES];
+    __weak SimulatedBluetoothReceiver * weakSelf = self;
+    dispatch_async(telemetryUpdateQueue, ^{
+        SimulatedBluetoothReceiver * strongSelf = weakSelf;
+        [strongSelf->_delegate bluetoothDidConnect];
+    });
+    _internalTimer = [NSTimer scheduledTimerWithTimeInterval:_updateInterval target:self selector:@selector(_internalTimerFired:) userInfo:nil repeats:YES];
 }
 
 - (void)_internalStop {
     [_internalTimer invalidate];
     _internalTimer = nil;
+    __weak SimulatedBluetoothReceiver * weakSelf = self;
+    dispatch_async(telemetryUpdateQueue, ^{
+        SimulatedBluetoothReceiver * strongSelf = weakSelf;
+        [strongSelf->_delegate bluetoothDidDisconnect];
+    });
 }
 
 - (void)_internalTimerFired:(NSTimer *)timer {
-    
-    [_delegate didReceiveDataPacket:nil];
+    __weak SimulatedBluetoothReceiver * weakSelf = self;
+    dispatch_async(telemetryUpdateQueue, ^{
+        SimulatedBluetoothReceiver * strongSelf = weakSelf;
+        SimulatedBluetoothReceiverDataPacket * packet = [[SimulatedBluetoothReceiverDataPacket alloc] init];
+        packet.uuid = [NSUUID UUID];
+        packet.engineSpeed = 1500 + arc4random() % (10000 - 1500);
+        packet.wheelSpeed = 0 + arc4random() % (15 - 0);
+        packet.seedRate = 10000 + arc4random() % (20000 - 10000);
+        NSData * encodedPacket = [NSKeyedArchiver archivedDataWithRootObject:packet requiringSecureCoding:NO error:nil];
+        if (encodedPacket) {
+            [strongSelf->_delegate didReceiveDataPacket:encodedPacket];
+        }
+    });
 }
 
 @end

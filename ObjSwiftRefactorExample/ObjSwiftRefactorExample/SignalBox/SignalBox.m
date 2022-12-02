@@ -8,6 +8,9 @@
 #import "SignalBox.h"
 #import "SimulatedBluetoothReceiver.h"
 
+
+static NSTimeInterval defaultUpdateInterval = 0.2;
+
 @interface SignalBox () <SimulatedBluetoothReceiverDelegate>
 @property (nonatomic, strong) SimulatedBluetoothReceiver * simReceiver;
 @end
@@ -23,7 +26,7 @@
     return sharedInstance;
 }
 
-- (void)setSignalInterval:(int)interval {
+- (void)setSignalInterval:(NSTimeInterval)interval {
     [_simReceiver setUpdateInterval:interval];
 }
 
@@ -31,21 +34,35 @@
     self = [super init];
     if (self) {
         _simReceiver = [[SimulatedBluetoothReceiver alloc] init];
-        [_simReceiver setUpdateInterval:0.5];
+        _simReceiver.delegate = self;
+        [_simReceiver setUpdateInterval:defaultUpdateInterval];
     }
     return self;
 }
 
+- (void)start {
+    [_simReceiver start];
+}
+
+- (void)stop {
+    [_simReceiver stop];
+}
+
 - (void)bluetoothDidConnect {
-    NSLog(@"Connected!");
+    [[NSNotificationCenter defaultCenter] postNotificationName:signalBoxConnectedNotificationName object:nil];
 }
 
 - (void)bluetoothDidDisconnect {
-    NSLog(@"Disconnected!");
+    [[NSNotificationCenter defaultCenter] postNotificationName:signalBoxDisconnectedNotificationName object:nil];
 }
 
 - (void)didReceiveDataPacket:(nonnull NSData *)data {
-    
+    SimulatedBluetoothReceiverDataPacket * packetDecoded = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (packetDecoded) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:signalBoxTelemetryReceivedNotificationName object:packetDecoded];
+        });
+    }
 }
 
 @end
