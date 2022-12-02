@@ -14,13 +14,13 @@ import Foundation
 
     // MARK: - Initializing
 
-    private static var sharedManager: SignalBoxNew = {
+    private static var sharedManagerInstance: SignalBoxNew = {
         let manager = SignalBoxNew()
         return manager
     }()
 
-    class func shared() -> SignalBoxNew {
-        return sharedManager
+    @objc class func sharedManager() -> SignalBoxNew {
+        return sharedManagerInstance
     }
 
     init(provider: SignalBoxDataProvider? = SimulatedBluetoothReceiver()) {
@@ -32,15 +32,15 @@ import Foundation
 
     // MARK: - Wrapper functions
 
-    func setSignalInterval(_ timeInterval: TimeInterval) {
+    @objc func setSignalInterval(_ timeInterval: TimeInterval) {
         simReceiver?.setUpdateInterval(timeInterval)
     }
 
-    func start() {
+    @objc func start() {
         simReceiver?.start()
     }
 
-    func stop() {
+    @objc func stop() {
         simReceiver?.stop()
     }
 

@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "SignalBox.h"
+#import "ObjSwiftRefactorExample-Swift.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +23,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothDisconnected:) name:signalBoxDisconnectedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:signalBoxTelemetryReceivedNotificationName object:nil];
     
-    [[SignalBox sharedManager] start];
+    [[SignalBoxNew sharedManager] start];
 
     return YES;
 }
