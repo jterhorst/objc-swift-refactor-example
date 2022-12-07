@@ -3,6 +3,10 @@
 
 ---
 
+## Story time: Compaq, The first true IBM clone.
+
+---
+
 ## Infinite possibilities
 
 ### You can't know everything about this code.
@@ -21,17 +25,23 @@
 
 ---
 
+## The code that already exists is a known risk. Your changes are an unknown risk.
+
+### We know about crashes/bugs in the existing code. We don't know what your new code will do.
+
+---
+
 ## So how can we migrate this code?
 
 ---
 
-## Option 1: I'm an awesome coder, and great at Swift. What could go wrong? Just rewrite each class. No need to test the old code.
+## Option 1: What could go wrong? Just rewrite each class straight to Swift. No need to test the old code - it's probably buggy anyway.
 
-### Outcome: Bugs bugs bugs, for months on and on.
+### Outcome: Bugs bugs bugs, based on existing assumptions, for months on and on.
 
 ---
 
-## Option 2: Replace portions of the app in sections. Entire rewrites of clusters of classes.
+## Option 2: Replace portions of the app in sections. Entire rewrites of clusters of classes. Rearchitect as we go.
 
 ### Outcome: Months of planning. Grueling and expensive.
 
@@ -41,15 +51,12 @@
 
 ---
 
-## Historical example: Compaq, The first true IBM clone.
-
----
-
 ## We'll clone the Obj-C
 
 1. Implement top-to-bottom testing of the legacy code.
 2. Create our clone, duplicating the same tests as the original.
 3. Line-by-line copy, at first.
+4. Cover all of the points where this class communicates with others.
 
 ---
 
@@ -59,6 +66,15 @@
 2. We're _not changing architecture_ (yet).
 3. Add interfaces and conformance to the legacy class to allow for mocking.
 4. No refactoring beyond this (yet).
+
+---
+
+## Areas to watch for
+
+1. NSNotificationCenter calls. These can fire off events.
+2. Delegation. ObjC classes _love_ delegation pattern.
+3. Methods exposed in the interface file.
+4. Initializers and singleton methods.
 
 ---
 
