@@ -22,8 +22,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothConnected:) name:signalBoxConnectedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothDisconnected:) name:signalBoxDisconnectedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:signalBoxTelemetryReceivedNotificationName object:nil];
-    
-    [[SignalBoxNew sharedManager] start];
+
+    BOOL featureFlagTrue = NO; //
+    if (featureFlagTrue) {
+        [[SignalBoxNew sharedManager] start];
+    } else {
+        [[SignalBox sharedManager] start];
+    }
 
     return YES;
 }
