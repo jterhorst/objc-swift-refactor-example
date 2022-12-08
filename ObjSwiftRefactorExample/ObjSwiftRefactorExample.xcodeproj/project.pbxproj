@@ -17,9 +17,10 @@
 		0AA2AE942935484400A4E8B2 /* SignalBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2AE932935484400A4E8B2 /* SignalBox.m */; };
 		0AA2AE9729355A4C00A4E8B2 /* SimulatedBluetoothReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2AE9629355A4C00A4E8B2 /* SimulatedBluetoothReceiver.m */; };
 		0AA2AEA5293A605900A4E8B2 /* SignalBoxLegacyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2AEA4293A605900A4E8B2 /* SignalBoxLegacyTests.swift */; };
-		0AA2AEAD293A6E7400A4E8B2 /* SignalBoxNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2AEAC293A6E7400A4E8B2 /* SignalBoxNew.swift */; };
+		0AA2AEAD293A6E7400A4E8B2 /* SignalBoxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2AEAC293A6E7400A4E8B2 /* SignalBoxSwift.swift */; };
 		0AA2AEB1293A77DD00A4E8B2 /* SignalBoxDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2AEB0293A77DD00A4E8B2 /* SignalBoxDataProvider.swift */; };
 		0AA2AEB3293A90AC00A4E8B2 /* SignalBoxNewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2AEB2293A90AC00A4E8B2 /* SignalBoxNewTests.swift */; };
+		0ACC5E7F29425ADF00A708D0 /* SignalBoxManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC5E7E29425ADF00A708D0 /* SignalBoxManagerInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +53,10 @@
 		0AA2AEA2293A605900A4E8B2 /* ObjSwiftRefactorExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjSwiftRefactorExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA2AEA4293A605900A4E8B2 /* SignalBoxLegacyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalBoxLegacyTests.swift; sourceTree = "<group>"; };
 		0AA2AEAB293A6E7400A4E8B2 /* ObjSwiftRefactorExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjSwiftRefactorExample-Bridging-Header.h"; sourceTree = "<group>"; };
-		0AA2AEAC293A6E7400A4E8B2 /* SignalBoxNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalBoxNew.swift; sourceTree = "<group>"; };
+		0AA2AEAC293A6E7400A4E8B2 /* SignalBoxSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalBoxSwift.swift; sourceTree = "<group>"; };
 		0AA2AEB0293A77DD00A4E8B2 /* SignalBoxDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalBoxDataProvider.swift; sourceTree = "<group>"; };
 		0AA2AEB2293A90AC00A4E8B2 /* SignalBoxNewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalBoxNewTests.swift; sourceTree = "<group>"; };
+		0ACC5E7E29425ADF00A708D0 /* SignalBoxManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalBoxManagerInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +122,8 @@
 				0AA2AE932935484400A4E8B2 /* SignalBox.m */,
 				0AA2AE9529355A4C00A4E8B2 /* SimulatedBluetoothReceiver.h */,
 				0AA2AE9629355A4C00A4E8B2 /* SimulatedBluetoothReceiver.m */,
-				0AA2AEAC293A6E7400A4E8B2 /* SignalBoxNew.swift */,
+				0ACC5E7E29425ADF00A708D0 /* SignalBoxManagerInterface.swift */,
+				0AA2AEAC293A6E7400A4E8B2 /* SignalBoxSwift.swift */,
 				0AA2AEB0293A77DD00A4E8B2 /* SignalBoxDataProvider.swift */,
 			);
 			path = SignalBox;
@@ -241,10 +244,11 @@
 				0AA2AE5E293544B800A4E8B2 /* AppDelegate.m in Sources */,
 				0AA2AEB1293A77DD00A4E8B2 /* SignalBoxDataProvider.swift in Sources */,
 				0AA2AE9729355A4C00A4E8B2 /* SimulatedBluetoothReceiver.m in Sources */,
+				0ACC5E7F29425ADF00A708D0 /* SignalBoxManagerInterface.swift in Sources */,
 				0AA2AE942935484400A4E8B2 /* SignalBox.m in Sources */,
 				0AA2AE6F293544BA00A4E8B2 /* main.m in Sources */,
 				0AA2AE61293544B800A4E8B2 /* SceneDelegate.m in Sources */,
-				0AA2AEAD293A6E7400A4E8B2 /* SignalBoxNew.swift in Sources */,
+				0AA2AEAD293A6E7400A4E8B2 /* SignalBoxSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

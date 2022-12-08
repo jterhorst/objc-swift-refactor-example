@@ -61,9 +61,9 @@ final class SignalBoxNewTests: XCTestCase {
 
     // MARK: - Support stuff for tests
 
-    func systemUnderTest() -> (box: SignalBoxNew, provider: SignalBoxDataProvider) {
+    func systemUnderTest() -> (box: SignalBoxSwift, provider: SignalBoxDataProvider) {
         let provider = MockSignalBoxDataProvider()
-        let box = SignalBoxNew(provider: provider)
+        let box = SignalBoxSwift(provider: provider)
         provider.delegate = box
         return (box, provider)
     }

@@ -17,8 +17,9 @@
 
 @protocol SignalBoxDataProvider;
 @protocol SignalBoxDataProviderDelegate;
+@protocol SignalBoxManagerInterface;
 
-@interface SignalBox : NSObject <SignalBoxDataProviderDelegate>
+@interface SignalBox : NSObject <SignalBoxManagerInterface, SignalBoxDataProviderDelegate>
 + (instancetype _Nonnull)sharedManager;
 - (instancetype _Nonnull)initWithProvider:(id<SignalBoxDataProvider>_Nonnull)provider;
 - (void)setSignalInterval:(NSTimeInterval)interval;

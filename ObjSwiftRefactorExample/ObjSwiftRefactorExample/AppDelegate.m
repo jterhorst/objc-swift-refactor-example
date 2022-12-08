@@ -24,11 +24,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:signalBoxTelemetryReceivedNotificationName object:nil];
 
     BOOL featureFlagTrue = NO; //
-    if (featureFlagTrue) {
-        [[SignalBoxNew sharedManager] start];
-    } else {
-        [[SignalBox sharedManager] start];
-    }
+    Class<SignalBoxManagerInterface> signalManager = (featureFlagTrue)? [SignalBoxSwift class] : [SignalBox class];
+    [[signalManager sharedManager] start];
 
     return YES;
 }

@@ -1,5 +1,5 @@
 //
-//  SignalBoxNew.swift
+//  SignalBoxSwift.swift
 //  ObjSwiftRefactorExample
 //
 //  Created by Jason Terhorst on 12/2/22.
@@ -7,19 +7,19 @@
 
 import Foundation
 
-@objc class SignalBoxNew: NSObject, SignalBoxDataProviderDelegate {
+@objc class SignalBoxSwift: NSObject, SignalBoxManagerInterface, SignalBoxDataProviderDelegate {
 
     private static let defaultUpdateInterval: TimeInterval = 0.2;
     private var simReceiver: SignalBoxDataProvider?
 
     // MARK: - Initializing
 
-    private static var sharedManagerInstance: SignalBoxNew = {
-        let manager = SignalBoxNew()
+    private static var sharedManagerInstance: SignalBoxSwift = {
+        let manager = SignalBoxSwift()
         return manager
     }()
 
-    @objc class func sharedManager() -> SignalBoxNew {
+    @objc static func sharedManager() -> SignalBoxManagerInterface {
         return sharedManagerInstance
     }
 
@@ -27,7 +27,7 @@ import Foundation
         super.init()
         simReceiver = provider
         simReceiver?.delegate = self
-        simReceiver?.setUpdateInterval(SignalBoxNew.defaultUpdateInterval)
+        simReceiver?.setUpdateInterval(SignalBoxSwift.defaultUpdateInterval)
     }
 
     // MARK: - Wrapper functions
